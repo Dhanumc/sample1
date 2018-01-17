@@ -4,7 +4,7 @@
   <groupId>com.mycompany.app</groupId>
   <artifactId>my-app</artifactId>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.2</version>
   <name>my-app</name>
   <url>http://maven.apache.org</url>
   <dependencies>
@@ -15,4 +15,42 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+   <distributionManagement>
+     <snapshotRepository>
+        <id>my_snapshots</id>
+        <name>n_snap</name>
+        <url>http://localhost:8081/nexus/content/repositories/my_snapshots</url>
+     </snapshotRepository>
+
+     <repository>
+        <id>my-releases</id>
+        <name>n_release</name>
+        <url>http://localhost:8081/nexus/content/repositories/my-releases</url>
+     </repository>
+  </distributionManagement>
+
+<build>
+  <plugins>
+    <plugin>
+       <groupId>org.sonatype.plugins</groupId>
+       <artifactId>nexus-staging-maven-plugin</artifactId>
+       <version>1.5.1</version>
+         <executions>
+           <execution>
+               <id>default-deploy</id>
+               <phase>deploy</phase>
+               <goals>
+               <goal>deploy</goal>
+             </goals>
+           </execution>
+         </executions>
+     <configuration>
+       <serverId>nexus</serverId>
+       <nexusUrl>http://localhost:8081/nexus/</nexusUrl>
+       <skipStaging>true</skipStaging>
+    </configuration>
+   </plugin>
+ </plugins>
+</build>
 </project>
