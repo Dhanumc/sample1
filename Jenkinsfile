@@ -1,19 +1,20 @@
 pipeline {
-    agent any
+    agent none
     stages {
         stage('Build') {
+            agent any
             steps {
                 sh 'mvn install'
             }
         }
         stage('Test') {
-            node {label 'pipe_test'}
+            agent {label 'pipe_test'}
             steps {
                 sh 'mvn test'
             }
         }
         stage('Skip test') {
-            node {label 'pipe_skiptest'}
+            agent {label 'pipe_skiptest'}
             steps {
                 sh 'mvn install -Dmaven.test.skip=true'
             }
