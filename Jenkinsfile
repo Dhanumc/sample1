@@ -6,17 +6,13 @@ pipeline {
                 sh 'mvn install'
             }
         }
-    }
     node {label 'pipe_test'}
-    stages {
         stage('Test') {
             steps {
                 sh 'mvn test'
             }
         }
-    }
-    node {label 'pipe_skiptest'}
-    stages {
+        node {label 'pipe_skiptest'}
         stage('Skip test') {
             steps {
                 sh 'mvn install -Dmaven.test.skip=true'
