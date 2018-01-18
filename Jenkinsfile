@@ -7,7 +7,7 @@ pipeline {
             }
         }
     }
-    agent {label 'pipe_test'}
+    node {label 'pipe_test'}
     stages {
         stage('Test') {
             steps {
@@ -15,7 +15,7 @@ pipeline {
             }
         }
     }
-    agent {label 'pipe_skiptest'}
+    node {label 'pipe_skiptest'}
     stages {
         stage('Skip test') {
             steps {
