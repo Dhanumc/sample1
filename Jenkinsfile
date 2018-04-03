@@ -24,9 +24,5 @@ pipeline {
                }
         }
         
-       stage('Publish') {
-       nexusPublisher nexusInstanceId: 'NexusRepo123', nexusRepositoryId: 'releases', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: '/home/advik/.jenkins/workspace/simple_project/target/gamutkart.war']], mavenCoordinate: [artifactId: 'gamutkart', groupId: 'com.gamutgurus', packaging: 'war', version: '1.1']]]
-       }   
-            
-    }
+     }
 }
