@@ -1,25 +1,28 @@
 pipeline {
-    agent none
+    agent any
     stages {
-        stage('Build') {
-            agent any
+        stage('compile stage') {
             steps {
-                sh 'mvn install'
+                withMaven(maven: 'maven') {
+                    sh 'mvn install'
+                }
             }
         }
-        stage('Test') {
-            agent { label 'pipe_test' }
-            tools { maven 'M2_HOME' }
+        stage('Testing stage') {
             steps {
-                sh 'mvn test'
-            }
+                withMaven(maven : 'maven') {
+                     sh 'mvn test'
+                   }
+               }
         }
-        stage('Skip test') {
-            agent { label 'pipe_skiptest' }
-            tools { maven 'M2_HOME' }
+        
+        stage('Dewployment stage') {
             steps {
-                sh 'mvn install -Dmaven.test.skip=true'
-            }
+                withMaven(maven : 'maven') {
+                     sh 'mvn deploy'
+                   }
+               }
         }
-    }
+            
+    
 }
